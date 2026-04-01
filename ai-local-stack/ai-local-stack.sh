@@ -86,7 +86,11 @@ pull_if_newer() {
   echo "  🔍 Checking ${label}..."
   local local_digest
   local_digest=$(podman inspect "${image}" --format '{{index .RepoDigests 0}}' 2>/dev/null || echo "none")
-  if ! timeout 30 podman pull --quiet "${image}" >/dev/null 2>&1; then
+  local timeout_cmd
+  timeout_cmd=$(command -v gtimeout || command -v timeout || true)
+  local pull_cmd=("podman" "pull" "--quiet" "${image}")
+  [[ -n "${timeout_cmd}" ]] && pull_cmd=("${timeout_cmd}" "30" "${pull_cmd[@]}")
+  if ! "${pull_cmd[@]}" >/dev/null 2>&1; then
     echo "     ⚠️  Could not reach registry (offline?), skipping update check"
     return 1
   fi

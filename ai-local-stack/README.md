@@ -52,6 +52,7 @@ On first `start`, containers are created automatically. Subsequent starts are fa
 - `podman` — container runtime (replaces Docker)
 - `ollama` — local LLM runtime, must be installed and on `$PATH`
 - `curl` — used for Ollama health check on startup
+- `coreutils` — provides `gtimeout` for registry update checks (`brew install coreutils`)
 
 ## Ports in use
 
