@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-readonly BIN_DIR="${HOME}/bin"
+readonly BIN_DIR="${1:-${HOME}/bin}"
 readonly REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 if [[ ! -d "${BIN_DIR}" ]]; then
